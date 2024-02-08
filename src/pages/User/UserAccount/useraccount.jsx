@@ -61,14 +61,14 @@ const UserAccount = () => {
   };
 
   return (
-    <>
+    <div className="bg-[#EFE1D1]">
       <Navbar />
 
       <h1 className="text-3xl font-semibold mt-3 mb-3 text-center">
         My Account
       </h1>
 
-      <div className="w-full max-w-md rounded-lg bg-white p-4 mx-auto">
+      <div className="w-full max-w-md rounded-lg bg-[#EFE1D1] p-4 mx-auto">
         <img
           className="w-48 h-48 mx-auto rounded-full"
           src={todoAcc.profilePictureUrl}
@@ -101,7 +101,7 @@ const UserAccount = () => {
       />
 
       <Footer />
-    </>
+    </div>
   );
 };
 

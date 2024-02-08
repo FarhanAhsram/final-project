@@ -76,12 +76,12 @@ const DetailFood = () => {
   };
 
   return (
-    <>
+    <div className="bg-[#EFE1D1]">
       <Navbar />
 
       {status === "loading" && <Loading />}
 
-      <h1 className="text-3xl font-semibold text-center mt-3 mb-3">
+      <h1 className="text-4xl font-semibold text-center mt-10 mb-4">
         Food's Detail
       </h1>
 
@@ -89,7 +89,7 @@ const DetailFood = () => {
         {/* Images */}
         <div className="md:w-1/2 mb-4 md:mb-0">
           <img
-            className="rounded-lg shadow-md w-full h-auto max-w-lg max-h-96 mx-auto"
+            className="rounded-lg shadow-md w-full max-w-lg max-h-96 mx-auto"
             src={todoData.imageUrl}
             alt={todoData.name}
           />
@@ -288,7 +288,7 @@ const DetailFood = () => {
       )} */}
 
       <Footer />
-    </>
+    </div>
   );
 };
 

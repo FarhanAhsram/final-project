@@ -6,11 +6,9 @@ export default {
   ],
   theme: {
     extend: {
-      colors: {
-        yellow: {
-          1000: '#DBCC95',
-        }
-      }
+      fontFamily: {
+        sans: ['Luckiest Guy', 'cursive'],
+      },
     },
   },
   plugins: [],

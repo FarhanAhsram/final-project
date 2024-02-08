@@ -89,56 +89,63 @@ const ListFoods = () => {
   // console.log("error", error);
 
   return (
-    <div className="bg-emerald-200">
+    <div className="bg-[#EFE1D1]">
       <Navbar />
-      <h1 className="text-3xl font-semibold mt-3 mb-3 text-center">
+      <h1 className="text-5xl font-semibold mt-10 mb-4 text-center">
         List of Food
       </h1>
       {status === "loading" && foods && <Loading />}
 
       {todoAcc.role === "admin" && status === "succeeded" && foods && (
         <div>
-          <Link to={"/createfood"}>
+          {/* <Link to={"/createfood"}>
             <button
               type="submit"
               className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 mb-2"
             >
               Create Menu
             </button>
-          </Link>
+          </Link> */}
 
-          <div className="container flex items-center justify-center min-h-screen mx-auto">
+          {/* <div className="w-20 h-20 text-center border-4 border-blue-500 rounded-full flex items-center justify-center">
+            Create Menu
+          </div> */}
+
+          <div className="container flex items-center justify-center mx-auto mb-6">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {foods.map((food) => (
-                <div className="bg-gray-300 rounded-xl shadow-lg">
+                <div className="bg-[#503C3C] rounded-xl shadow-lg">
                   <div className="p-5 flex flex-col">
                     <img
                       src={food.imageUrl}
                       alt={food.name}
                       className="rounded-xl overflow-hidden w-full h-48"
                     />
-                    <h2 className="text-1xl md:text-3xl font-medium mt-3">
+                    <h2 className="text-white text-lg font-medium mt-3">
                       {food.name}
                     </h2>
-                    <Link
-                      to={`/detailfood/${food.id}`}
-                      className="text-center bg-blue-500 text-blue-700 py-2 rounded-lg font-semibold mt-4 hover:bg-blue-300 focus:scale-95 transition-all duration-200 ease-out"
-                    >
-                      Detail
-                    </Link>
-                    <Link
-                      to={`/editfood/${food.id}`}
-                      className="text-center bg-amber-500 text-amber-700 py-2 rounded-lg font-semibold mt-4 hover:bg-amber-300 focus:scale-95 transition-all duration-200 ease-out"
-                      onClick={() => handleEditFood(food)}
-                    >
-                      Edit
-                    </Link>
-                    <button
-                      className="text-center bg-red-500 text-red-700 py-2 rounded-lg font-semibold mt-4 hover:bg-red-300 focus:scale-95 transition-all duration-200 ease-out"
-                      onClick={() => handleDelete(food.id)}
-                    >
-                      Delete
-                    </button>
+                    <div className="flex justify-center mt-4 gap-8">
+                      <Link
+                        to={`/detailfood/${food.id}`}
+                        className="items-center w-24 px-3 py-2 text-sm font-medium text-center text-white bg-[#A87C7C] rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                        onClick={() => handleEditRole(user)}
+                      >
+                        Detail
+                      </Link>
+                      <Link
+                        to={`/editfood/${food.id}`}
+                        className="items-center w-24 px-3 py-2 text-sm font-medium text-center text-white bg-[#A87C7C] rounded-lg hover:bg-slate-600 focus:ring-4 focus:outline-none focus:ring-amber-300 dark:bg-amber-600 dark:hover:bg-amber-700 dark:focus:ring-amber-800"
+                        onClick={() => handleEditRole(user)}
+                      >
+                        Edit
+                      </Link>
+                      <button
+                        className="items-center w-24 px-3 py-2 text-sm font-medium text-center text-white bg-red-700 rounded-lg hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
+                        onClick={() => handleDelete(food.id)}
+                      >
+                        Delete
+                      </button>
+                    </div>
                   </div>
                 </div>
               ))}
@@ -158,10 +165,8 @@ const ListFoods = () => {
                     alt={food.name}
                     className="rounded-xl overflow-hidden w-full h-48 hover:shadow-lg transition duration-300 ease-in-out"
                   />
-                  <h2 className="text-1xl md:text-3xl font-medium mt-3">
-                    {food.name}
-                  </h2>
-                  <p className="text-slate-800 mt-3">{food.description}</p>
+                  <h2 className="text-lg font-medium mt-3">{food.name}</h2>
+                  {/* <p className="text-slate-800 mt-3">{food.description}</p> */}
                   <Link
                     to={`/detailfood/${food.id}`}
                     className="text-center bg-blue-500 text-white py-2 rounded-lg font-semibold mt-4 hover:bg-blue-300 focus:scale-95 transition-all duration-200 ease-out"

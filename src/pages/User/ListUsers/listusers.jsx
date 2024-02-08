@@ -56,13 +56,13 @@ const ListUsers = () => {
   // console.log("error", error);
 
   return (
-    <>
+    <div className="bg-[#EFE1D1]">
       <Navbar />
       {todoAcc.role === "admin" && status === "loading" && users && <Loading />}
 
       {todoAcc.role === "admin" && status === "succeeded" && users && (
         <div>
-          <h1 className="text-3xl font-semibold mt-3 mb-3 text-center">
+          <h1 className="text-5xl font-semibold mt-8 mb-8 text-center">
             List of User
           </h1>
           <div className="container flex items-center justify-center mx-auto mb-6">
@@ -70,7 +70,7 @@ const ListUsers = () => {
               {users.map((user) => (
                 <div
                   key={user.id}
-                  className="max-w-xs rounded-xl overflow-hidden shadow-lg bg-slate-500"
+                  className="max-w-xs rounded-xl overflow-hidden shadow-lg bg-[#503C3C]"
                 >
                   {user.profilePictureUrl ? (
                     <img
@@ -86,8 +86,8 @@ const ListUsers = () => {
                     />
                   )}
                   <div className="text-center px-6 py-4">
-                    <h5 className="font-bold text-xl mb-2">{user.name}</h5>
-                    <p className="text-gray-700 text-base">{user.role}</p>
+                    <h5 className="text-white font-bold text-xl mb-2">{user.name}</h5>
+                    <p className="text-white text-base">{user.role}</p>
                   </div>
                   <div className="flex justify-center mb-4 gap-8">
                     <button
@@ -119,7 +119,7 @@ const ListUsers = () => {
       />
 
       <Footer />
-    </>
+    </div>
   );
 };
 
