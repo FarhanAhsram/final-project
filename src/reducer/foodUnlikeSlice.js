@@ -3,7 +3,7 @@ import Swal from "sweetalert2";
 
 export const fetchFoodUnlike = createAsyncThunk(
   "food/fetchFoodUnlike",
-  async (id) => {
+  async ({ id }) => {
     try {
       const response = await fetch(
         "https://api-bootcamp.do.dibimbing.id/api/v1/unlike",

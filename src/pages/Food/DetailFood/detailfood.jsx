@@ -66,7 +66,7 @@ const DetailFood = () => {
     setRateModal(false);
     setReviewModal(false);
   };
-
+  
   const handleLikeFood = () => {
     dispatch(fetchFoodLike(id));
   };
