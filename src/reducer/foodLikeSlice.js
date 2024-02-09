@@ -14,7 +14,7 @@ export const fetchFoodLike = createAsyncThunk(
             Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
             APIKey: "w05KkI9AWhKxzvPFtXotUva-",
           },
-          body: JSON.stringify(id),
+          body: JSON.stringify({ foodId: id }),
         }
       );
 

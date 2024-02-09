@@ -57,25 +57,25 @@ const Navbar = () => {
                 <div className="ml-4 flex items-center space-x-4">
                   <Link
                     to={"/"}
-                    className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-md font-medium"
+                    className="text-white hover:bg-[#503C3C] hover:text-gray-300 px-3 py-2 rounded-md text-md font-medium"
                   >
                     Home
                   </Link>
                   <Link
                     to={"/listusers"}
-                    className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-md font-medium"
+                    className="text-white hover:bg-[#503C3C] hover:text-gray-300 px-3 py-2 rounded-md text-md font-medium"
                   >
                     Users
                   </Link>
                   <Link
                     to={"/listfoods"}
-                    className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-md font-medium"
+                    className="text-white hover:bg-[#503C3C] hover:text-gray-300 px-3 py-2 rounded-md text-md font-medium"
                   >
                     Foods
                   </Link>
                   <div className="relative">
                     <button
-                      className="text-gray-300 ml-2 hover:bg-gray-700 hover:text-white rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
+                      className="ml-2 hover:bg-gray-700 hover:text-white rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
                       onClick={toggleDropdown}
                     >
                       <img
@@ -85,23 +85,23 @@ const Navbar = () => {
                       />
                     </button>
                     {isDropdownOpen && (
-                      <div className="absolute right-0 mt-1 w-48 bg-gray-900 rounded-b-md overflow-hidden shadow-xl z-10">
+                      <div className="absolute right-0 mt-1 w-48 bg-[#3E3232] rounded-b-md overflow-hidden shadow-xl z-10">
                         <div className="px-2 py-2">
                           <Link
                             to={"/useraccount"}
-                            className="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-800"
+                            className="block px-4 py-2 text-sm rounded text-gray-300 hover:bg-[#503C3C]"
                           >
                             My Account
                           </Link>
                           <Link
                             to={"/likedfood"}
-                            className="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-800"
+                            className="block px-4 py-2 text-sm rounded text-gray-300 hover:bg-[#503C3C]"
                           >
                             Favorite Food
                           </Link>
                           <button
                             onClick={handleLogout}
-                            className="bg-red-800 block rounded w-full text-left px-4 py-2 text-sm text-white hover:bg-red-500 text-white"
+                            className="bg-red-800 block rounded w-full text-left px-4 py-2 text-sm text-white hover:bg-red-500"
                           >
                             Logout
                           </button>
@@ -153,37 +153,37 @@ const Navbar = () => {
               <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
                 <Link
                   to={"/"}
-                  className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
+                  className="text-gray-300 hover:bg-[#503C3C] hover:text-white block px-3 py-2 rounded-md text-base font-medium"
                 >
                   Home
                 </Link>
                 <Link
                   to={"/listusers"}
-                  className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
+                  className="text-gray-300 hover:bg-[#503C3C] hover:text-white block px-3 py-2 rounded-md text-base font-medium"
                 >
                   Users
                 </Link>
                 <Link
                   to={"/listfoods"}
-                  className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
+                  className="text-gray-300 hover:bg-[#503C3C] hover:text-white block px-3 py-2 rounded-md text-base font-medium"
                 >
                   Foods
                 </Link>
                 <Link
                   to={"/useraccount"}
-                  className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
+                  className="text-gray-300 hover:bg-[#503C3C] hover:text-white block px-3 py-2 rounded-md text-base font-medium"
                 >
                   My Account
                 </Link>
                 <Link
                   to={"/likedfood"}
-                  className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
+                  className="text-gray-300 hover:bg-[#503C3C] hover:text-white block px-3 py-2 rounded-md text-base font-medium"
                 >
                   Liked Food
                 </Link>
                 <button
                   onClick={handleLogout}
-                  className="block bg-red-800 rounded w-full text-left px-3 py-2 text-white font-medium text-center hover:bg-red-500 hover:text-white"
+                  className="block bg-red-800 rounded w-full px-3 py-2 text-white font-medium text-center hover:bg-red-500 hover:text-white"
                 >
                   Logout
                 </button>
@@ -194,7 +194,7 @@ const Navbar = () => {
       )}
 
       {todoAcc.role === "user" && (
-        <nav className="bg-gray-900">
+        <nav className="bg-[#3E3232]">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex items-center justify-between h-16">
               <div className="flex items-center">
@@ -208,19 +208,19 @@ const Navbar = () => {
                 <div className="ml-4 flex items-center space-x-4">
                   <Link
                     to={"/"}
-                    className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-md font-medium"
+                    className="text-gray-300 hover:bg-[#503C3C] hover:text-white px-3 py-2 rounded-md text-md font-medium"
                   >
                     Home
                   </Link>
                   <Link
                     to={"/listfoods"}
-                    className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-md font-medium"
+                    className="text-gray-300 hover:bg-[#503C3C] hover:text-white px-3 py-2 rounded-md text-md font-medium"
                   >
                     Foods
                   </Link>
                   <div className="relative">
                     <button
-                      className="text-gray-300 ml-2 hover:bg-gray-700 hover:text-white rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
+                      className="text-gray-300 ml-2 hover:bg-[#503C3C] hover:text-white rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
                       onClick={toggleDropdown}
                     >
                       <img
@@ -230,23 +230,23 @@ const Navbar = () => {
                       />
                     </button>
                     {isDropdownOpen && (
-                      <div className="absolute right-0 mt-1 w-48 bg-gray-900 rounded-b-md overflow-hidden shadow-xl z-10">
+                      <div className="absolute right-0 mt-1 w-48 bg-[#3E3232] rounded-b-md overflow-hidden shadow-xl z-10">
                         <div className="px-2 py-2">
                           <Link
                             to={"/useraccount"}
-                            className="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-800"
+                            className="block px-4 py-2 text-sm text-gray-300 hover:bg-[#503C3C]"
                           >
                             My Account
                           </Link>
                           <Link
                             to={"/likedfood"}
-                            className="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-800"
+                            className="block px-4 py-2 text-sm text-gray-300 hover:bg-[#503C3C]"
                           >
                             Favorite Food
                           </Link>
                           <button
                             onClick={handleLogout}
-                            className="bg-red-800 block rounded w-full text-left px-4 py-2 text-sm text-white hover:bg-red-500 text-white"
+                            className="bg-red-800 block rounded w-full text-left px-4 py-2 text-sm text-white hover:bg-red-500"
                           >
                             Logout
                           </button>
@@ -298,31 +298,31 @@ const Navbar = () => {
               <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
                 <Link
                   to={"/"}
-                  className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
+                  className="text-gray-300 hover:bg-[#503C3C] hover:text-white block px-3 py-2 rounded-md text-base font-medium"
                 >
                   Home
                 </Link>
                 <Link
                   to={"/listfoods"}
-                  className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
+                  className="text-gray-300 hover:bg-[#503C3C] hover:text-white block px-3 py-2 rounded-md text-base font-medium"
                 >
                   Foods
                 </Link>
                 <Link
                   to={"/useraccount"}
-                  className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
+                  className="text-gray-300 hover:bg-[#503C3C] hover:text-white block px-3 py-2 rounded-md text-base font-medium"
                 >
                   My Account
                 </Link>
                 <Link
                   to={"/likedfood"}
-                  className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
+                  className="text-gray-300 hover:bg-[#503C3C] hover:text-white block px-3 py-2 rounded-md text-base font-medium"
                 >
                   Liked Food
                 </Link>
                 <button
                   onClick={handleLogout}
-                  className="block bg-red-800 rounded w-full text-left px-3 py-2 text-white font-medium text-center hover:bg-red-500 hover:text-white"
+                  className="block bg-red-800 rounded w-full px-3 py-2 text-white font-medium text-center hover:bg-red-500 hover:text-white"
                 >
                   Logout
                 </button>

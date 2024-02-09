@@ -127,15 +127,13 @@ const ListFoods = () => {
                     <div className="flex justify-center mt-4 gap-8">
                       <Link
                         to={`/detailfood/${food.id}`}
-                        className="items-center w-24 px-3 py-2 text-sm font-medium text-center text-white bg-[#A87C7C] rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                        onClick={() => handleEditRole(user)}
+                        className="items-center w-24 px-3 py-2 text-sm font-medium text-center text-white bg-[#A87C7C] rounded-lg hover:bg-[#EFE1D1] hover:text-slate-950 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                       >
                         Detail
                       </Link>
                       <Link
                         to={`/editfood/${food.id}`}
-                        className="items-center w-24 px-3 py-2 text-sm font-medium text-center text-white bg-[#A87C7C] rounded-lg hover:bg-slate-600 focus:ring-4 focus:outline-none focus:ring-amber-300 dark:bg-amber-600 dark:hover:bg-amber-700 dark:focus:ring-amber-800"
-                        onClick={() => handleEditRole(user)}
+                        className="items-center w-24 px-3 py-2 text-sm font-medium text-center text-white bg-[#A87C7C] rounded-lg hover:bg-[#EFE1D1] hover:text-slate-950 focus:ring-4 focus:outline-none focus:ring-amber-300 dark:bg-amber-600 dark:hover:bg-amber-700 dark:focus:ring-amber-800"
                       >
                         Edit
                       </Link>
@@ -155,21 +153,21 @@ const ListFoods = () => {
       )}
 
       {todoAcc.role === "user" && status === "succeeded" && foods && (
-        <div className="container flex items-center justify-center min-h-screen mx-auto">
+        <div className="container flex items-center justify-center mx-auto mb-6">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {foods.map((food) => (
-              <div className="bg-gray-300 rounded-xl shadow-lg">
+              <div className="bg-[#503C3C] rounded-xl shadow-lg">
                 <div className="p-5 flex flex-col">
                   <img
                     src={food.imageUrl}
                     alt={food.name}
                     className="rounded-xl overflow-hidden w-full h-48 hover:shadow-lg transition duration-300 ease-in-out"
                   />
-                  <h2 className="text-lg font-medium mt-3">{food.name}</h2>
+                  <h2 className="text-lg text-white font-medium mt-3">{food.name}</h2>
                   {/* <p className="text-slate-800 mt-3">{food.description}</p> */}
                   <Link
                     to={`/detailfood/${food.id}`}
-                    className="text-center bg-blue-500 text-white py-2 rounded-lg font-semibold mt-4 hover:bg-blue-300 focus:scale-95 transition-all duration-200 ease-out"
+                    className="text-center bg-[#A87C7C] text-white py-2 rounded-lg font-semibold mt-4 hover:bg-[#EFE1D1] hover:text-slate-950 focus:scale-95 transition-all duration-200 ease-out"
                   >
                     Detail
                   </Link>

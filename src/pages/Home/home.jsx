@@ -1,30 +1,40 @@
+import { Link } from "react-router-dom";
 import Footer from "../../components/Footer/footer";
 import Navbar from "../../components/Navbar/navbar";
 
 const Home = () => {
   return (
-    <>
+    <div className="bg-[#EFE1D1]">
       <Navbar />
 
-      <section className="bg-blue-900 text-white">
-        <div className="flex items-center justify-center h-screen">
-          <div className="text-center">
-            <h1 className="text-5xl font-bold mb-4">Food Journal</h1>
-            <p className="text-lg mb-4">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusamus.
+      <section className="flex rounded-xl shadow-lg max-w-3x1 p-5">
+        <div className="sm:w-1/2 my-auto mx-auto">
+          <div className="mx-8">
+            <h1 className="text-6xl text-center sm:text-left leading-normal">
+              Hello World
+            </h1>
+            <p className="text-center sm:text-left">
+              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nam,
+              nemo et ab esse mollitia quisquam facilis maiores quos assumenda
+              aspernatur rem, ad, laudantium error ut ea enim repudiandae
+              aliquam eius.
             </p>
-            <button
-              type="button"
-              className="text-white bg-green-600 hover:bg-green-700 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 focus:outline-none focus:ring focus:border-green-300"
+            <Link
+              to={"/listfoods"}
+              className="bg-[#A87C7C] rounded-3xl py-3 px-8 font-medium inline-block mt-6 sm:mt-4 sm:justify-center hover:bg-[#3E3232] hover:text-white focus:scale-95 transition-all duration-200 ease-out"
             >
               Get Started
-            </button>
+            </Link>
           </div>
+        </div>
+
+        <div className="sm:block hidden w-1/2 mx-auto my-auto">
+          <img src="images/hat.jpg" alt="" className="w-3/4 mx-auto my-auto" />
         </div>
       </section>
 
       <Footer />
-    </>
+    </div>
   );
 };
 

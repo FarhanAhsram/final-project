@@ -18,8 +18,13 @@ const DetailFood = () => {
 
   // Variable untuk DetailFood
   const { todo, status, error } = useSelector((state) => state.detailFood);
-  const { id } = useParams();
   const todoData = todo.data || {};
+  const { id } = useParams();
+
+  console.log(id);
+  const handleLikeFood = () => {
+    dispatch(fetchFoodLike(id));
+  };
 
   // Variable untuk getRatingFood
   const ratings = useSelector((state) => state.getRating.todo.data);
@@ -67,9 +72,7 @@ const DetailFood = () => {
     setReviewModal(false);
   };
   
-  const handleLikeFood = () => {
-    dispatch(fetchFoodLike(id));
-  };
+
 
   const handleUnlikeFood = () => {
     dispatch(fetchFoodUnlike(id));
