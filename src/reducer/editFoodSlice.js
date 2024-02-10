@@ -19,24 +19,25 @@ export const fetchEditFood = createAsyncThunk(
       );
 
       // console.log(response);
-      // const data = await response.json();
-      if (response.code !== "200") {
-        throw new Error(response.message);
+      const data = await response.json();
+
+      if (data.code !== "200") {
+        throw new Error(data.message);
       }
 
       Swal.fire({
         title: "Food Edited Successfully",
-        text: response.message,
+        text: data.message,
         icon: "success",
         showConfirmButton: true,
       });
 
-      return { id, foodData };
+      return data;
     } catch (error) {
       console.log(error);
       Swal.fire({
         title: "Failed to Edit Food",
-        icon: error,
+        text: error,
         icon: "error",
         showConfirmButton: true,
       });

@@ -37,7 +37,7 @@ export const fetchEditUserProfile = createAsyncThunk(
       console.log(error);
       Swal.fire({
         title: "Failed to Edit User",
-        icon: error.message,
+        text: error.message,
         icon: "error",
         showConfirmButton: true,
       });

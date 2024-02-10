@@ -16,26 +16,27 @@ export const fetchRegister = createAsyncThunk(
           body: JSON.stringify(userData),
         }
       );
+      
+      const data = await response.json();
 
-      if (!response.ok) {
-        throw new Error("Register Gagal");
+      if (data.code !== "200") {
+        throw new Error(data.message);
       }
 
-      console.log(response);
+      // console.log(response);
       Swal.fire({
         title: "Register Successful",
-        text: response.message,
+        text: data.message,
         icon: "success",
         showConfirmButton: true,
       });
-      const data = await response.json();
 
       return data;
     } catch (error) {
       console.log("Error pada try catch", error);
       Swal.fire({
         title: "Register Unsuccessful",
-        text: "-",
+        text: error,
         icon: "error",
         showConfirmButton: true,
       });

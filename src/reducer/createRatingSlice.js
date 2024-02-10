@@ -37,7 +37,7 @@ export const fetchCreateRating = createAsyncThunk(
       console.log(error);
       Swal.fire({
         title: "Failed to Rate Food",
-        icon: error,
+        text: error,
         icon: "error",
         showConfirmButton: true,
       });

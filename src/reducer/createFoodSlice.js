@@ -37,7 +37,7 @@ export const fetchCreateFood = createAsyncThunk(
       console.log(error);
       Swal.fire({
         title: "Failed to Create Food",
-        icon: error,
+        text: error,
         icon: "error",
         showConfirmButton: true,
       });

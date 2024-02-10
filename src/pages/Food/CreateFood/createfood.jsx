@@ -37,11 +37,11 @@ const CreateFood = () => {
   };
 
   return (
-    <>
+    <div className="bg-[#EFE1D1]">
       <Navbar />
 
-      <div className="max-w-md mx-auto mt-4 p-4 bg-white shadow-lg rounded-md">
-        <h2 className="text-2xl font-semibold mb-4 text-center">Create Menu</h2>
+      <div className="max-w-md mx-auto p-4 bg-[#EFE1D1]">
+        <h2 className="text-3xl font-semibold mb-4 text-center">Create Menu</h2>
         <form action="" onSubmit={handleSubmit}>
           <div className="mb-4">
             <label
@@ -87,7 +87,7 @@ const CreateFood = () => {
               required
             />
           </div>
-          <div className="mb-4">
+          <div className="mb-2">
             <label
               htmlFor="ingredients"
               className="block text-sm font-medium text-gray-600"
@@ -104,7 +104,7 @@ const CreateFood = () => {
           <div className="text-center">
             <button
               type="submit"
-              className="w-full bg-blue-500 text-white p-2 rounded mt-7"
+              className="w-full text-white bg-[#3E3232] rounded-lg hover:bg-[#503C3C] p-2"
             >
               {foodStatus === "loading" ? "Adding..." : "Add Menu"}
             </button>
@@ -113,7 +113,7 @@ const CreateFood = () => {
       </div>
 
       <Footer />
-    </>
+    </div>
   );
 };
 

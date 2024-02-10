@@ -3,7 +3,7 @@ import Swal from "sweetalert2";
 
 export const fetchFoodUnlike = createAsyncThunk(
   "food/fetchFoodUnlike",
-  async ({ id }) => {
+  async ({ foodId }) => {
     try {
       const response = await fetch(
         "https://api-bootcamp.do.dibimbing.id/api/v1/unlike",
@@ -14,7 +14,7 @@ export const fetchFoodUnlike = createAsyncThunk(
             Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
             APIKey: "w05KkI9AWhKxzvPFtXotUva-",
           },
-          body: JSON.stringify(id),
+          body: JSON.stringify({ foodId }),
         }
       );
 
@@ -26,7 +26,7 @@ export const fetchFoodUnlike = createAsyncThunk(
       }
 
       Swal.fire({
-        title: "Liked Food",
+        title: "Unliked Food",
         text: data.message,
         icon: "success",
         showConfirmButton: true,
@@ -36,8 +36,8 @@ export const fetchFoodUnlike = createAsyncThunk(
     } catch (error) {
       console.log(error);
       Swal.fire({
-        title: "Failed to Liked Food",
-        icon: error,
+        title: "Failed to Unliked Food",
+        text: error,
         icon: "error",
         showConfirmButton: true,
       });

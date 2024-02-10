@@ -1,7 +1,7 @@
-const EditProfileModal = ({
+const EditFoodModal = ({
   isOpen,
-  formData,
-  handleSaveEdit,
+  editedFood,
+  handleSaveFood,
   handleModalClose,
   handleInputChange,
 }) => {
@@ -31,7 +31,7 @@ const EditProfileModal = ({
                 className="text-2xl leading-6 font-medium text-gray-900 text-center"
                 id="modal-headline"
               >
-                Edit User Profile
+                Edit Food
               </h3>
               <div className="mt-5 sm:mt-4">
                 <label
@@ -44,55 +44,55 @@ const EditProfileModal = ({
                   type="text"
                   id="name"
                   name="name"
-                  value={formData.name}
+                  value={editedFood.name}
                   onChange={handleInputChange}
                   className="mt-1 p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring focus:ring-gray-200 focus:border-blue-500 block w-full sm:text-sm"
                 />
               </div>
               <div className="mt-5 sm:mt-4">
                 <label
-                  htmlFor="email"
+                  htmlFor="description"
                   className="block text-sm font-medium text-gray-700"
                 >
-                  Email
+                  Description
                 </label>
                 <input
                   type="text"
-                  id="email"
-                  name="email"
-                  value={formData.email}
+                  id="description"
+                  name="description"
+                  value={editedFood.description}
                   onChange={handleInputChange}
                   className="mt-1 p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring focus:ring-gray-200 focus:border-blue-500 block w-full sm:text-sm"
                 />
               </div>
               <div className="mt-5 sm:mt-4">
                 <label
-                  htmlFor="profilePictureUrl"
+                  htmlFor="imageUrl"
                   className="block text-sm font-medium text-gray-700"
                 >
-                  Profile Picture
+                  Food Image
                 </label>
                 <input
                   type="text"
-                  id="profilePictureUrl"
-                  name="profilePictureUrl"
-                  value={formData.profilePictureUrl}
+                  id="imageUrl"
+                  name="imageUrl"
+                  value={editedFood.imageUrl}
                   onChange={handleInputChange}
                   className="mt-1 p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring focus:ring-gray-200 focus:border-blue-500 block w-full sm:text-sm"
                 />
               </div>
               <div className="mt-5 sm:mt-4">
                 <label
-                  htmlFor="phoneNumber"
+                  htmlFor="ingredients"
                   className="block text-sm font-medium text-gray-700"
                 >
-                  Phone Number
+                  Ingredients
                 </label>
                 <input
-                  type="number"
-                  id="phoneNumber"
-                  name="phoneNumber"
-                  value={formData.phoneNumber}
+                  type="text"
+                  id="ingredients"
+                  name="ingredients"
+                  value={editedFood.ingredients}
                   onChange={handleInputChange}
                   className="mt-1 p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring focus:ring-gray-200 focus:border-blue-500 block w-full sm:text-sm"
                 />
@@ -100,7 +100,7 @@ const EditProfileModal = ({
             </div>
             <div className="mt-5 sm:mt-4 sm:flex sm:flex-row-reverse p-3">
               <button
-                onClick={handleSaveEdit}
+                onClick={handleSaveFood}
                 type="button"
                 className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-green-600 text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 sm:ml-3 sm:w-auto sm:text-sm"
               >
@@ -121,4 +121,4 @@ const EditProfileModal = ({
   );
 };
 
-export default EditProfileModal;
+export default EditFoodModal;

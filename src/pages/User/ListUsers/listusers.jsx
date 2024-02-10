@@ -12,18 +12,19 @@ import EditRoleModal from "../../../components/UsersComp/EditRoleModal/editrolem
 const ListUsers = () => {
   const dispatch = useDispatch();
 
-  // Variable untuk List Users
+  // Hooks Selector List Users
   const users = useSelector((state) => state.user.todo.data);
   const status = useSelector((state) => state.user.status);
   const error = useSelector((state) => state.user.error);
 
-  // Variable untuk List Users
+  // Hooks Selector User Login
   const { todo } = useSelector((state) => state.userLogin);
   const todoAcc = todo.user || {};
 
-  // Variable untuk Edit Role
+  // Hooks State Edit Role
   const [editModalRole, setEditModalRole] = useState(false);
-  const [editedUser, setEditedUser] = useState({ id: null, role: "" });
+  const [editedUser, setEditedUser] = useState({ role: "" });
+  const [roleId, setRoleId] = useState({ id: null });
 
   useEffect(() => {
     dispatch(fetchUser());
@@ -31,7 +32,8 @@ const ListUsers = () => {
   }, [dispatch]);
 
   const handleEditRole = (userData) => {
-    setEditedUser({ id: userData.id, role: userData.role });
+    setRoleId({ id: userData.id });
+    setEditedUser({ role: userData.role });
     setEditModalRole(true);
   };
 
@@ -42,13 +44,21 @@ const ListUsers = () => {
     });
   };
 
-  const handleSaveEdit = () => {
-    dispatch(fetchEditUserRole(editedUser));
+  const handleModalClose = () => {
     setEditModalRole(false);
   };
 
-  const handleModalClose = () => {
-    setEditModalRole(false);
+  // Function Edit Role
+  const handleSaveEdit = () => {
+    const id = roleId;
+    console.log(id);
+    dispatch(fetchEditUserRole({ id, userData: editedUser }))
+      .then(() => {
+        setEditModalRole(false);
+      })
+      .catch((error) => {
+        console.error("Failed to update role:", error);
+      });
   };
 
   // console.log("todo", users);
@@ -62,7 +72,7 @@ const ListUsers = () => {
 
       {todoAcc.role === "admin" && status === "succeeded" && users && (
         <div>
-          <h1 className="text-5xl font-semibold mt-8 mb-8 text-center">
+          <h1 className="text-5xl font-cursive font-semibold mt-8 mb-8 text-center">
             List of User
           </h1>
           <div className="container flex items-center justify-center mx-auto mb-6">
@@ -86,12 +96,14 @@ const ListUsers = () => {
                     />
                   )}
                   <div className="text-center px-6 py-4">
-                    <h5 className="text-white font-bold text-xl mb-2">{user.name}</h5>
+                    <h5 className="text-white font-bold text-xl mb-2">
+                      {user.name}
+                    </h5>
                     <p className="text-white text-base">{user.role}</p>
                   </div>
                   <div className="flex justify-center mb-4 gap-8">
                     <button
-                      className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                      className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-[#3E3232] rounded-lg hover:bg-[#EFE1D1] hover:text-black focus:ring-4 focus:outline-none"
                       onClick={() => handleEditRole(user)}
                     >
                       Edit Role

@@ -7,6 +7,7 @@ const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  // State Login
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -17,6 +18,7 @@ const Login = () => {
   // console.log("Email", email);
   // console.log("Password", password);
 
+  // Function Login
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -34,7 +36,6 @@ const Login = () => {
   return (
     <>
       <div className="bg-gray-50 min-h-screen flex items-center justify-center">
-        {/* Login Container */}
         <div className="bg-cyan-100 flex rounded-xl shadow-lg max-w-3x1 p-5">
           {/* Form */}
           <div className="sm:w-1/2 px-6 my-auto">

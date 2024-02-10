@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { fetchRegister } from "../../../reducer/registerSlice";
@@ -7,31 +8,46 @@ const Register = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  const [profilePictureUrl, setProfilePictureUrl] = useState(null);
+
   const registerStatus = useSelector((state) => state.register.status);
 
-  // Function Register
+  const handleFileChange = (e) => {
+    setProfilePictureUrl(e.target.files[0]);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const registerData = {
-      name: e.target.name.value,
-      email: e.target.email.value,
-      password: e.target.password.value,
-      passwordRepeat: e.target.passwordRepeat.value,
-      role: e.target.role.value,
-      profilePictureUrl: e.target.profilePictureUrl.value,
-      phoneNumber: e.target.phoneNumber.value,
-    };
+    try {
+      // Upload the profile picture first
+      const imageFormData = new FormData();
+      imageFormData.append("image", profilePictureUrl);
+      const imageResponse = await dispatch(
+        fetchUploadImage({ image: imageFormData })
+      );
 
-    dispatch(fetchRegister(registerData))
-      .then((response) => {
-        if (response.payload) {
+      if (imageResponse.payload) {
+        // If image upload is successful, proceed with user registration
+        const registerData = {
+          name: e.target.name.value,
+          email: e.target.email.value,
+          password: e.target.password.value,
+          passwordRepeat: e.target.passwordRepeat.value,
+          role: e.target.role.value,
+          profilePictureUrl: imageResponse.payload.url, // Access the URL from the payload
+          phoneNumber: e.target.phoneNumber.value,
+        };
+
+        const registerResponse = await dispatch(fetchRegister(registerData));
+
+        if (registerResponse.payload) {
           navigate("/login");
         }
-      })
-      .catch((error) => {
-        console.error("Failed to register", error);
-      });
+      }
+    } catch (error) {
+      console.error("Error during registration:", error);
+    }
   };
 
   return (
@@ -102,11 +118,12 @@ const Register = () => {
                 <option value="admin">Admin</option>
               </select>
               <input
-                type="text"
+                type="file"
                 id="profilePictureUrl"
                 name="profilePictureUrl"
                 className="p-2 rounded border"
-                placeholder="Profile Picture"
+                onChange={handleFileChange}
+                accept="image/*"
                 required
               />
               <input

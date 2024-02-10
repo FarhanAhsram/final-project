@@ -7,7 +7,7 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['Luckiest Guy', 'cursive'],
+        cursive: ['Luckiest Guy', 'cursive'],
       },
     },
   },

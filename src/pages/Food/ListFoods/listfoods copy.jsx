@@ -7,6 +7,7 @@ import { fetchDeleteFood } from "../../../reducer/deleteFoodSlice";
 import { fetchUserLogin } from "../../../reducer/userLoginSlice";
 import { fetchEditFood } from "../../../reducer/editFoodSlice";
 import { fetchCreateFood } from "../../../reducer/createFoodSlice";
+import { fetchUploadImage } from "../../../reducer/uploadImageSlice";
 
 import Navbar from "../../../components/Navbar/navbar";
 import Footer from "../../../components/Footer/footer";
@@ -33,6 +34,7 @@ const ListFoods = () => {
   // Hooks State Edit Food
   const [editModalFood, setEditModalFood] = useState(false);
   const [editedFood, setEditedFood] = useState({
+    id: null,
     name: "",
     description: "",
     imageUrl: "",
@@ -43,6 +45,17 @@ const ListFoods = () => {
     dispatch(fetchFood());
     dispatch(fetchUserLogin());
   }, [dispatch]);
+
+  const handleEditFood = (foodData) => {
+    setEditedFood({
+      id: foodData.id,
+      name: foodData.name,
+      description: foodData.description,
+      imageUrl: foodData.imageUrl,
+      ingredients: foodData.ingredients,
+    });
+    setEditModalFood(true);
+  };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -68,53 +81,40 @@ const ListFoods = () => {
       .split(",")
       .map((ingredient) => ingredient.trim());
 
-    const formData = {
-      name: e.target.name.value,
-      description: e.target.description.value,
-      imageUrl: e.target.imageUrl.value,
-      ingredients: ingredientsArray,
-    };
+    const formData = new FormData();
+    formData.append("image", e.target.imageUrl.files[0]);
 
-    dispatch(fetchCreateFood(formData))
-      .then((response) => {
-        if (response.payload) {
-          toggleModal(false);
-        }
-      })
-      .catch((error) => {
-        console.error("Failed to create food", error);
-      });
-  };
+    try {
+      const imageResponse = await dispatch(
+        fetchUploadImage({ fileImage: formData })
+      );
 
-  // Function untuk Get Data Edit
-  const handleEditFood = (foodData) => {
-    const ingredients = Array.isArray(foodData.ingredients)
-      ? foodData.ingredients
-      : foodData.ingredients.split(",").map((ingredient) => ingredient.trim());
+      if (imageResponse.payload) {
+        const foodData = {
+          name: e.target.name.value,
+          description: e.target.description.value,
+          imageUrl: imageResponse.payload.imageUrl,
+          ingredients: ingredientsArray,
+        };
 
-    setEditedFood({
-      name: foodData.name,
-      description: foodData.description,
-      imageUrl: foodData.imageUrl,
-      ingredients: ingredients,
-    });
-    setEditModalFood(true);
+        dispatch(fetchCreateFood(foodData))
+          .then((response) => {
+            if (response.payload) {
+              toggleModal(false);
+            }
+          })
+          .catch((error) => {
+            console.error("Failed to create food", error);
+          });
+      }
+    } catch (error) {
+      console.error("Failed to upload image", error);
+    }
   };
 
   // Function Edit Food
   const handleSaveFood = () => {
-    const ingredients = Array.isArray(editedFood.ingredients)
-      ? editedFood.ingredients
-      : editedFood.ingredients
-          .split(",")
-          .map((ingredient) => ingredient.trim());
-
-    const editedFoodData = {
-      ...editedFood,
-      ingredients: ingredients,
-    };
-
-    dispatch(fetchEditFood({ foodData: editedFoodData }))
+    dispatch(fetchEditFood({ foodData: editedFood }))
       .then(() => {
         setEditModalFood(false);
       })
@@ -193,10 +193,7 @@ const ListFoods = () => {
           <div className="container flex items-center justify-center mx-auto mb-6">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {foods.map((food) => (
-                <div
-                  key={food.id}
-                  className="bg-[#503C3C] rounded-xl shadow-lg"
-                >
+                <div className="bg-[#503C3C] rounded-xl shadow-lg">
                   <div className="p-5 flex flex-col">
                     <img
                       src={food.imageUrl}

@@ -29,14 +29,14 @@ const EditFood = () => {
 
   const handleSaveFood = (e) => {
     dispatch(fetchEditFood(formData));
-  }
+  };
 
   return (
-    <>
+    <div className="bg-[#EFE1D1]">
       <Navbar />
 
-      <div className="max-w-md mx-auto mt-8 p-4 bg-white shadow-lg rounded-md">
-        <h2 className="text-2xl font-semibold mb-4 text-center">Edit Menu</h2>
+      <div className="max-w-md mx-auto p-4 bg-[#EFE1D1]">
+        <h2 className="text-3xl font-semibold mb-4 text-center">Edit Menu</h2>
         <form action="">
           <div className="mb-4">
             <label
@@ -103,7 +103,7 @@ const EditFood = () => {
               required
             />
           </div>
-          <div className="mb-4">
+          <div className="mb-2">
             <label
               htmlFor="ingredients"
               className="block text-sm font-medium text-gray-600"
@@ -127,7 +127,7 @@ const EditFood = () => {
           <div className="text-center">
             <button
               type="submit"
-              className="w-full bg-blue-500 text-white p-2 rounded mt-7"
+              className="w-full text-white bg-[#3E3232] rounded-lg hover:bg-[#503C3C] p-2"
               onClick={handleSaveFood}
             >
               Edit Food
@@ -137,7 +137,7 @@ const EditFood = () => {
       </div>
 
       <Footer />
-    </>
+    </div>
   );
 };
 

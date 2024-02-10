@@ -10,7 +10,7 @@ import Loading from "../../../components/Loading/loading";
 const LikedFood = () => {
   const dispatch = useDispatch();
 
-  // Variabel untuk LikedFoods
+  // Hooks Selector LikedFoods
   const likedFoods = useSelector((state) => state.likedFood.todo.data);
   const status = useSelector((state) => state.likedFood.status);
   const error = useSelector((state) => state.likedFood.error);
@@ -22,14 +22,14 @@ const LikedFood = () => {
   return (
     <div className="bg-[#EFE1D1] min-h-screen">
       <Navbar />
-      <h1 className="text-5xl font-semibold mt-10 mb-4 text-center">
+      <h1 className="text-5xl font-cursive font-semibold mt-10 mb-6 text-center">
         Liked Food
       </h1>
 
       {status === "loading" && likedFoods && <Loading />}
 
       {status === "succeeded" && likedFoods && (
-        <div className="container flex items-center justify-center mx-auto">
+        <div className="container flex items-center justify-center mx-auto mb-6">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {likedFoods.map((likedFoods) => (
               <div

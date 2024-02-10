@@ -10,11 +10,11 @@ import EditProfileModal from "../../../components/UsersComp/EditProfileModal/edi
 const UserAccount = () => {
   const dispatch = useDispatch();
 
-  // Variabel untuk UserAccount
+  // Hooks Selector UserAccount
   const { todo, status, error } = useSelector((state) => state.userLogin);
   const todoAcc = todo.user || {};
 
-  // Variabel untuk EditProfile
+  // Hooks State EditProfile
   const [editUserProfile, setEditUserProfile] = useState(false);
   const [formData, setFormData] = useState({
     name: todoAcc.name,
@@ -27,6 +27,7 @@ const UserAccount = () => {
     dispatch(fetchUserLogin());
   }, [dispatch]);
 
+  // Function untuk Get Data User
   const handleEdit = (userData) => {
     setFormData({
       id: userData.id,
@@ -46,6 +47,7 @@ const UserAccount = () => {
     });
   };
 
+  // Function Edit Profile User
   const handleSaveEdit = () => {
     dispatch(fetchEditUserProfile({ userData: formData }))
       .then(() => {
@@ -64,13 +66,13 @@ const UserAccount = () => {
     <div className="bg-[#EFE1D1]">
       <Navbar />
 
-      <h1 className="text-3xl font-semibold mt-3 mb-3 text-center">
+      <h1 className="text-4xl font-cursive font-semibold mt-3 mb-3 text-center">
         My Account
       </h1>
 
       <div className="w-full max-w-md rounded-lg bg-[#EFE1D1] p-4 mx-auto">
         <img
-          className="w-48 h-48 mx-auto rounded-full"
+          className="w-48 h-48 mx-auto rounded-full shadow-2xl"
           src={todoAcc.profilePictureUrl}
           alt={todoAcc.name}
         />
@@ -85,7 +87,7 @@ const UserAccount = () => {
           </p>
           <button
             onClick={() => handleEdit(todoAcc)}
-            className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+            className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-[#3E3232] rounded-lg hover:bg-[#503C3C] focus:ring-4 focus:outline-none"
           >
             Update Profile
           </button>

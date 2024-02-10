@@ -3,16 +3,18 @@ import Swal from "sweetalert2";
 
 export const fetchUploadImage = createAsyncThunk(
   "image/fetchUploadImage",
-  async (imageFile) => {
+  async ({ fileImage }) => {
     try {
       const formData = new FormData();
-      formData.append("image", imageFile);
+      formData.append("image", fileImage);
 
       const response = await fetch(
         "https://api-bootcamp.do.dibimbing.id/api/v1/upload-image",
         {
           method: "POST",
+          maxBodyLength: Infinity,
           headers: {
+            "Content-Type": "multipart/form-data",
             Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
             APIKey: "w05KkI9AWhKxzvPFtXotUva-",
           },
@@ -38,7 +40,7 @@ export const fetchUploadImage = createAsyncThunk(
       console.error(error);
       Swal.fire({
         title: "Failed to Upload Image",
-        text: error.message,
+        text: error,
         icon: "error",
         showConfirmButton: true,
       });

@@ -16,22 +16,19 @@ import SeeRatingModal from "../../../components/FoodsComp/SeeRatingModal/seerati
 const DetailFood = () => {
   const dispatch = useDispatch();
 
-  // Variable untuk DetailFood
-  const { todo, status, error } = useSelector((state) => state.detailFood);
-  const todoData = todo.data || {};
+  // Hooks Param Id
   const { id } = useParams();
 
-  console.log(id);
-  const handleLikeFood = () => {
-    dispatch(fetchFoodLike(id));
-  };
+  // Hooks Selector DetailFood
+  const { todo, status, error } = useSelector((state) => state.detailFood);
+  const todoData = todo.data || {};
 
-  // Variable untuk getRatingFood
+  // Hooks Selector getRatingFood
   const ratings = useSelector((state) => state.getRating.todo.data);
   const statusRate = useSelector((state) => state.getRating.status);
   const errorRate = useSelector((state) => state.getRating.error);
 
-  // Variable untuk Rating
+  // Hooks State Rating
   const [rateModal, setRateModal] = useState(false);
   const [reviewModal, setReviewModal] = useState(false);
   const [rating, setRating] = useState(0);
@@ -42,17 +39,20 @@ const DetailFood = () => {
     dispatch(fetchGetRating(id));
   }, [dispatch, id]);
 
-  // Function untuk Input Value Rate
   const handleInputRating = (e) => {
     setRating(Number(e.target.value));
   };
 
-  // Function untuk Input Value Review
   const handleInputReview = (e) => {
     setReview(e.target.value);
   };
 
-  // Function untuk Create Submit
+  const handleModalClose = () => {
+    setRateModal(false);
+    setReviewModal(false);
+  };
+
+  // Function Create Rating
   const handleRatingSubmit = () => {
     try {
       const ratingData = {
@@ -66,16 +66,16 @@ const DetailFood = () => {
     }
   };
 
-  // Funtion untuk tutup modal Rating
-  const handleModalClose = () => {
-    setRateModal(false);
-    setReviewModal(false);
+  // Function Give Food Like
+  const handleLikeFood = () => {
+    const foodId = id;
+    dispatch(fetchFoodLike({ foodId }));
   };
-  
 
-
+  // Function Give Food Unlike
   const handleUnlikeFood = () => {
-    dispatch(fetchFoodUnlike(id));
+    const foodId = id;
+    dispatch(fetchFoodUnlike({ foodId }));
   };
 
   return (
@@ -84,7 +84,7 @@ const DetailFood = () => {
 
       {status === "loading" && <Loading />}
 
-      <h1 className="text-4xl font-semibold text-center mt-10 mb-4">
+      <h1 className="text-4xl font-semibold font-cursive text-center mt-10 mb-4">
         Food's Detail
       </h1>
 
@@ -92,7 +92,7 @@ const DetailFood = () => {
         {/* Images */}
         <div className="md:w-1/2 mb-4 md:mb-0">
           <img
-            className="rounded-lg shadow-md w-full max-w-lg max-h-96 mx-auto"
+            className="rounded-lg shadow-xl w-full max-w-lg max-h-96 mx-auto"
             src={todoData.imageUrl}
             alt={todoData.name}
           />
@@ -100,32 +100,64 @@ const DetailFood = () => {
 
         {/* Detail */}
         <div className="md:w-1/2 mx-auto">
-          <h1 className="text-xl font-semibold mb-2">{todoData.name}</h1>
+          <h1 className="text-2xl font-semibold mb-2">{todoData.name}</h1>
           <p className="text-gray-600">{todoData.description}</p>
 
-          <div className="flex gap-8">
+          <div className="md:mx-auto flex gap-8">
             <button
               onClick={handleLikeFood}
-              className="mt-4 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
+              className="mt-4 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-xl"
             >
-              Like Food
-            </button>
-            <button
-              onClick={handleUnlikeFood}
-              className="mt-4 bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
-            >
-              Unlike Food
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+                stroke="currentColor"
+                className="w-6 h-6"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M6.633 10.25c.806 0 1.533-.446 2.031-1.08a9.041 9.041 0 0 1 2.861-2.4c.723-.384 1.35-.956 1.653-1.715a4.498 4.498 0 0 0 .322-1.672V2.75a.75.75 0 0 1 .75-.75 2.25 2.25 0 0 1 2.25 2.25c0 1.152-.26 2.243-.723 3.218-.266.558.107 1.282.725 1.282m0 0h3.126c1.026 0 1.945.694 2.054 1.715.045.422.068.85.068 1.285a11.95 11.95 0 0 1-2.649 7.521c-.388.482-.987.729-1.605.729H13.48c-.483 0-.964-.078-1.423-.23l-3.114-1.04a4.501 4.501 0 0 0-1.423-.23H5.904m10.598-9.75H14.25M5.904 18.5c.083.205.173.405.27.602.197.4-.078.898-.523.898h-.908c-.889 0-1.713-.518-1.972-1.368a12 12 0 0 1-.521-3.507c0-1.553.295-3.036.831-4.398C3.387 9.953 4.167 9.5 5 9.5h1.053c.472 0 .745.556.5.96a8.958 8.958 0 0 0-1.302 4.665c0 1.194.232 2.333.654 3.375Z"
+                />
+              </svg>
             </button>
 
             <button
+              onClick={handleUnlikeFood}
+              className="mt-4 bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-xl"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+                stroke="currentColor"
+                className="w-6 h-6"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M7.498 15.25H4.372c-1.026 0-1.945-.694-2.054-1.715a12.137 12.137 0 0 1-.068-1.285c0-2.848.992-5.464 2.649-7.521C5.287 4.247 5.886 4 6.504 4h4.016a4.5 4.5 0 0 1 1.423.23l3.114 1.04a4.5 4.5 0 0 0 1.423.23h1.294M7.498 15.25c.618 0 .991.724.725 1.282A7.471 7.471 0 0 0 7.5 19.75 2.25 2.25 0 0 0 9.75 22a.75.75 0 0 0 .75-.75v-.633c0-.573.11-1.14.322-1.672.304-.76.93-1.33 1.653-1.715a9.04 9.04 0 0 0 2.86-2.4c.498-.634 1.226-1.08 2.032-1.08h.384m-10.253 1.5H9.7m8.075-9.75c.01.05.027.1.05.148.593 1.2.925 2.55.925 3.977 0 1.487-.36 2.89-.999 4.125m.023-8.25c-.076-.365.183-.75.575-.75h.908c.889 0 1.713.518 1.972 1.368.339 1.11.521 2.287.521 3.507 0 1.553-.295 3.036-.831 4.398-.306.774-1.086 1.227-1.918 1.227h-1.053c-.472 0-.745-.556-.5-.96a8.95 8.95 0 0 0 .303-.54"
+                />
+              </svg>
+            </button>
+          </div>
+
+          <div>
+            <button
               onClick={() => setRateModal(true)}
-              className="mt-4 bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded"
+              className="w-full mt-4 bg-[#3F2E3E] hover:bg-[#7E6363] text-white font-bold py-2 px-4 rounded-xl"
             >
               Give Rating
             </button>
+          </div>
+
+          <div>
             <button
               onClick={() => setReviewModal(true)}
-              className="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+              className="w-full mt-4 bg-[#3F2E3E] hover:bg-[#7E6363] text-white font-bold py-2 px-4 rounded-xl"
             >
               See Rating
             </button>
@@ -149,146 +181,6 @@ const DetailFood = () => {
         statusRate={statusRate}
         handleModalClose={handleModalClose}
       />
-
-      {/* Modal Give Rating */}
-      {/* {rateModal && (
-        <div className="fixed inset-0 z-10 overflow-y-auto">
-          <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
-            <div
-              className="fixed inset-0 transition-opacity"
-              aria-hidden="true"
-            >
-              <div className="absolute inset-0 bg-gray-500 opacity-75"></div>
-            </div>
-            <span
-              className="hidden sm:inline-block sm:align-middle sm:h-screen"
-              aria-hidden="true"
-            >
-              &#8203;
-            </span>
-            <div
-              className="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full"
-              role="dialog"
-              aria-modal="true"
-              aria-labelledby="modal-headline"
-            >
-              <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
-                <h3
-                  className="text-2xl leading-6 font-medium text-gray-900 text-center"
-                  id="modal-headline"
-                >
-                  Rating Food
-                </h3>
-                <div className="mt-5 sm:mt-4">
-                  <label
-                    htmlFor="rating"
-                    className="block text-sm font-medium text-gray-700"
-                  >
-                    Rating
-                  </label>
-                  <input
-                    type="number"
-                    value={rating}
-                    onChange={(e) => setRating(Number(e.target.value))}
-                    min="0"
-                    max="5"
-                    className="mt-1 p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring focus:ring-gray-200 focus:border-blue-500 block w-full sm:text-sm"
-                  />
-                </div>
-                <div className="mt-5 sm:mt-4">
-                  <label
-                    htmlFor="job"
-                    className="block text-sm font-medium text-gray-700"
-                  >
-                    Review
-                  </label>
-                  <textarea
-                    value={review}
-                    onChange={(e) => setReview(e.target.value)}
-                    rows="4"
-                    cols="50"
-                    className="mt-1 p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring focus:ring-gray-200 focus:border-blue-500 block w-full sm:text-sm"
-                  />
-                </div>
-              </div>
-              <div className="mt-5 sm:mt-4 sm:flex sm:flex-row-reverse p-3">
-                <button
-                  onClick={handleRatingSubmit}
-                  type="button"
-                  className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-green-600 text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 sm:ml-3 sm:w-auto sm:text-sm"
-                >
-                  Submit Rating
-                </button>
-                <button
-                  onClick={handleModalClose}
-                  type="button"
-                  className="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
-                >
-                  Cancel
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      )} */}
-
-      {/* Modal Review Food */}
-      {/* {reviewModal && (
-        <div className="fixed inset-0 z-10 overflow-y-auto">
-          <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
-            <div
-              className="fixed inset-0 transition-opacity"
-              aria-hidden="true"
-            >
-              <div className="absolute inset-0 bg-gray-500 opacity-75"></div>
-            </div>
-            <span
-              className="hidden sm:inline-block sm:align-middle sm:h-screen"
-              aria-hidden="true"
-            >
-              &#8203;
-            </span>
-            <div
-              className="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full overflow-y-auto"
-              role="dialog"
-              aria-modal="true"
-              aria-labelledby="modal-headline"
-            >
-              <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
-                <h3
-                  className="text-2xl leading-6 font-medium text-gray-900 text-center"
-                  id="modal-headline"
-                >
-                  Food's Rating and Review
-                </h3>
-                {statusRate === "succeeded" && ratings && (
-                  <div className="mt-6">
-                    {ratings.map((getRate) => (
-                      <div
-                        key={getRate.id}
-                        className="rounded-xl bg-slate-300 p-2 mt-4"
-                      >
-                        <h1 className="font-bold">{getRate.user.name}</h1>
-                        <h1>Rating: {getRate.rating}</h1>
-                        <h1>Review: {getRate.review}</h1>
-                      </div>
-                    ))}
-                  </div>
-                )}
-              </div>
-              <div className="sm:flex sm:flex-row-reverse p-3">
-                <button
-                  onClick={handleModalClose}
-                  type="button"
-                  className="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
-                >
-                  Close
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      )} */}
 
       <Footer />
     </div>

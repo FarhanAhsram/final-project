@@ -36,7 +36,7 @@ export const fetchDeleteFood = createAsyncThunk(
       console.log(error);
       Swal.fire({
         title: "Failed to Delete Food",
-        icon: error,
+        text: error,
         icon: "error",
         showConfirmButton: true,
       });
