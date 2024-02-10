@@ -7,8 +7,6 @@ import ListUsers from "./pages/User/ListUsers/listusers";
 import UserAccount from "./pages/User/UserAccount/useraccount";
 
 import ListFoods from "./pages/Food/ListFoods/listfoods";
-import CreateFood from "./pages/Food/CreateFood/createfood";
-import EditFood from "./pages/Food/EditFood/editfood";
 import DetailFood from "./pages/Food/DetailFood/detailfood";
 import LikedFood from "./pages/Food/LikedFood/likedfood";
 
@@ -50,22 +48,6 @@ export const routes = [
     element: (
       <ProtectedRoute>
         <ListFoods />
-      </ProtectedRoute>
-    ),
-  },
-  {
-    path: "/createfood",
-    element: (
-      <ProtectedRoute>
-        <CreateFood />
-      </ProtectedRoute>
-    ),
-  },
-  {
-    path: "/editfood/:id",
-    element: (
-      <ProtectedRoute>
-        <EditFood />
       </ProtectedRoute>
     ),
   },

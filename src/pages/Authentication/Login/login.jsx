@@ -39,10 +39,9 @@ const Login = () => {
         <div className="bg-cyan-100 flex rounded-xl shadow-lg max-w-3x1 p-5">
           {/* Form */}
           <div className="sm:w-1/2 px-6 my-auto">
-            <h2 className="text-[#F8C74F] font-bold text-2xl">Login</h2>
-            <p className="text-[#F8C74F] font-bold text-sm mt-4">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor,
-              amet.
+            <h2 className="text-[#7E5344] font-bold text-3xl">Login</h2>
+            <p className="text-[#7E5344] font-bold text-sm mt-4">
+              Welcome, please enter your email and password below
             </p>
 
             <form action="" className="flex flex-col gap-3 mt-4">
@@ -71,7 +70,7 @@ const Login = () => {
 
               <button
                 type="submit"
-                className="bg-[#F8C74F] rounded-xl py-2 mt-3 mb-2 hover:bg-[#F5A800] focus:outline-none focus:shadow-outline-blue"
+                className="bg-[#7E5344] text-white rounded-xl py-2 mt-3 mb-2 hover:bg-[#513a29] focus:outline-none focus:shadow-outline-blue"
                 onClick={handleSubmit}
                 disabled={status === "loading"}
               >
@@ -82,7 +81,7 @@ const Login = () => {
                 Don't Have an Account?{" "}
                 <Link
                   to={"/register"}
-                  className="text-[#F8C74F] hover:text-[#F5A800] font-bold underline"
+                  className="text-[#7E5344] hover:text-[#513a29] font-bold underline"
                 >
                   Sign Up Now
                 </Link>
@@ -92,7 +91,7 @@ const Login = () => {
 
           {/* Image */}
           <div className="sm:block hidden w-1/2">
-            <img src="images/login-img.jpg" className="rounded w-2/3 mx-auto" alt="" />
+            <img src="images/login-img.jpg" className="rounded-md w-2/3 mx-auto" alt="" />
           </div>
         </div>
       </div>
