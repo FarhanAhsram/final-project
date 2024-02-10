@@ -7,6 +7,7 @@ import { fetchDeleteFood } from "../../../reducer/deleteFoodSlice";
 import { fetchUserLogin } from "../../../reducer/userLoginSlice";
 import { fetchEditFood } from "../../../reducer/editFoodSlice";
 import { fetchCreateFood } from "../../../reducer/createFoodSlice";
+import { fetchUploadImage } from "../../../reducer/uploadImageSlice";
 
 import Navbar from "../../../components/Navbar/navbar";
 import Footer from "../../../components/Footer/footer";
@@ -32,6 +33,7 @@ const ListFoods = () => {
 
   // Hooks State Edit Food
   const [editModalFood, setEditModalFood] = useState(false);
+  const [foodId, setFoodId] = useState({ id: null });
   const [editedFood, setEditedFood] = useState({
     name: "",
     description: "",
@@ -43,6 +45,18 @@ const ListFoods = () => {
     dispatch(fetchFood());
     dispatch(fetchUserLogin());
   }, [dispatch]);
+
+  const handleEditFood = (foodData) => {
+    setFoodId({ id: foodData.id });
+    setEditedFood({
+      id: foodData.id,
+      name: foodData.name,
+      description: foodData.description,
+      imageUrl: foodData.imageUrl,
+      ingredients: foodData.ingredients,
+    });
+    setEditModalFood(true);
+  };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -86,23 +100,10 @@ const ListFoods = () => {
       });
   };
 
-  // Function untuk Get Data Edit
-  const handleEditFood = (foodData) => {
-    const ingredients = Array.isArray(foodData.ingredients)
-      ? foodData.ingredients
-      : foodData.ingredients.split(",").map((ingredient) => ingredient.trim());
-
-    setEditedFood({
-      name: foodData.name,
-      description: foodData.description,
-      imageUrl: foodData.imageUrl,
-      ingredients: ingredients,
-    });
-    setEditModalFood(true);
-  };
-
   // Function Edit Food
   const handleSaveFood = () => {
+    const id = foodId;
+    // console.log(id);
     const ingredients = Array.isArray(editedFood.ingredients)
       ? editedFood.ingredients
       : editedFood.ingredients
@@ -114,7 +115,7 @@ const ListFoods = () => {
       ingredients: ingredients,
     };
 
-    dispatch(fetchEditFood({ foodData: editedFoodData }))
+    dispatch(fetchEditFood({ id: id.id, foodData: editedFoodData }))
       .then(() => {
         setEditModalFood(false);
       })
@@ -193,10 +194,7 @@ const ListFoods = () => {
           <div className="container flex items-center justify-center mx-auto mb-6">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {foods.map((food) => (
-                <div
-                  key={food.id}
-                  className="bg-[#503C3C] rounded-xl shadow-lg"
-                >
+                <div className="bg-[#503C3C] rounded-xl shadow-lg">
                   <div className="p-5 flex flex-col">
                     <img
                       src={food.imageUrl}
@@ -216,7 +214,7 @@ const ListFoods = () => {
                       <Link
                         // to={`/editfood/${food.id}`}
                         className="items-center w-24 px-3 py-2 text-sm font-medium text-center text-white bg-[#A87C7C] rounded-lg hover:bg-[#EFE1D1] hover:text-slate-950 focus:ring-4 focus:outline-none focus:ring-amber-300 dark:bg-amber-600 dark:hover:bg-amber-700 dark:focus:ring-amber-800"
-                        onClick={() => handleEditFood(food.id)}
+                        onClick={() => handleEditFood(food)}
                       >
                         Edit
                       </Link>

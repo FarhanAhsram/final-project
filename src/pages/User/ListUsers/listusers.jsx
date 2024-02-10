@@ -51,8 +51,9 @@ const ListUsers = () => {
   // Function Edit Role
   const handleSaveEdit = () => {
     const id = roleId;
-    console.log(id);
-    dispatch(fetchEditUserRole({ id, userData: editedUser }))
+    // console.log(id);
+
+    dispatch(fetchEditUserRole({ id:id.id , userData: editedUser }))
       .then(() => {
         setEditModalRole(false);
       })

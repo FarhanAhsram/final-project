@@ -108,6 +108,14 @@ const Register = () => {
                 placeholder="Profile Picture"
                 required
               />
+              {/* <input
+                type="file"
+                id="profilePictureUrl"
+                name="profilePictureUrl"
+                className="p-2 rounded border"
+                placeholder="Profile Picture"
+                required
+              /> */}
               <input
                 type="number"
                 id="phoneNumber"
