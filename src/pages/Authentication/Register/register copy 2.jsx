@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { fetchRegister } from "../../../reducer/registerSlice";
@@ -13,34 +12,46 @@ const Register = () => {
   const [fileImage, setFileImage] = useState(null);
 
   // Function Register
-  const handleSubmit = async (e, formData) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-  
+
+    const registerData = {
+      name: e.target.name.value,
+      email: e.target.email.value,
+      password: e.target.password.value,
+      passwordRepeat: e.target.passwordRepeat.value,
+      role: e.target.role.value,
+      profilePictureUrl: "",
+      phoneNumber: e.target.phoneNumber.value,
+    };
+
     try {
-      await dispatch(fetchRegister(formData));
-      navigate("/login");
+      const response = await dispatch(fetchRegister(registerData));
+      if (response.payload) {
+        // Registrasi berhasil, lanjutkan dengan upload gambar
+        if (fileImage) {
+          // Panggil fungsi fetchUploadImage untuk mengunggah gambar
+          const uploadResponse = await dispatch(
+            fetchUploadImage({ fileImage })
+          );
+
+          // Jika upload berhasil, dapatkan URL gambar dari respons dan tambahkan ke registerData
+          if (uploadResponse.payload) {
+            registerData.profilePictureUrl = uploadResponse.payload.url;
+          }
+        }
+
+        // Redirect ke halaman login setelah selesai
+        navigate("/login");
+      }
     } catch (error) {
       console.error("Failed to register or upload image", error);
     }
   };
-  
+
   const handleFileChange = (e) => {
-    const file = e.target.files[0];
-    setFileImage(file);
-  };
-  
-  const handleRegisterSubmit = (e) => {
-    e.preventDefault();
-  
-    const formData = new FormData();
-    formData.append("name", e.target.name.value);
-    formData.append("email", e.target.email.value);
-    formData.append("password", e.target.password.value);
-    formData.append("role", e.target.role.value);
-    formData.append("profilePictureUrl", e.target.profilePictureUrl.files[0]);
-    formData.append("phoneNumber", e.target.phoneNumber.value);
-  
-    handleSubmit(e, formData);
+    const selectedFile = e.target.files[0];
+    setFileImage(selectedFile);
   };
 
   return (
@@ -66,7 +77,7 @@ const Register = () => {
             <form
               action=""
               className="flex flex-col gap-2 mt-4 my-auto"
-              onSubmit={handleRegisterSubmit}
+              onSubmit={handleSubmit}
             >
               <input
                 type="text"
