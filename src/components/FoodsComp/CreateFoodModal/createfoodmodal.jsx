@@ -67,13 +67,20 @@ const CreateFoodModal = ({ isOpen, handleSubmit, foodStatus, toggleModal, fileIm
                     Food Image
                   </label>
                   <input
+                    type="text"
+                    id="imageUrl"
+                    name="imageUrl"
+                    className="mt-1 p-2 border rounded-md w-full"
+                    required
+                  />
+                  {/* <input
                     type="file"
                     ref={fileImageRef}
                     id="imageUrl"
                     name="imageUrl"
                     className="mt-1 p-2 border rounded-md w-full"
                     required
-                  />
+                  /> */}
                 </div>
                 <div className="mb-2">
                   <label
