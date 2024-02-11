@@ -49,10 +49,9 @@ const Register = () => {
 
           {/* Form */}
           <div className="md:w-1/2 px-6">
-            <h2 className="text-[#F8C74F] font-bold text-2xl">Register</h2>
-            <p className="text-[#F8C74F] font-bold text-sm mt-4">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor,
-              amet.
+            <h2 className="text-[#7E5344] font-bold text-2xl">Register</h2>
+            <p className="text-[#7E5344] font-bold text-sm mt-4">
+              Hi there, please fill this form below to make an account
             </p>
 
             <form
@@ -137,7 +136,7 @@ const Register = () => {
 
               <button
                 type="submit"
-                className="bg-[#F8C74F] rounded-xl py-2 mt-3 mb-2 hover:bg-[#F5A800] focus:outline-none focus:shadow-outline-blue"
+                className="bg-[#7E5344] text-white rounded-xl py-2 mt-3 mb-2 hover:bg-[#513a29] focus:outline-none focus:shadow-outline-blue"
               >
                 {registerStatus === "loading" ? "Registering..." : "Register"}
               </button>
@@ -146,7 +145,7 @@ const Register = () => {
                 Already Have an Account?{" "}
                 <Link
                   to={"/login"}
-                  className="text-[#F8C74F] hover:text-[#F5A800] font-bold underline"
+                  className="text-[#7E5344] hover:text-[#513a29] font-bold underline"
                 >
                   Sign In Here
                 </Link>
