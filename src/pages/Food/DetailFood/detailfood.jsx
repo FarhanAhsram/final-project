@@ -103,6 +103,13 @@ const DetailFood = () => {
           <h1 className="text-2xl font-semibold mb-2">{todoData.name}</h1>
           <p className="text-gray-600">{todoData.description}</p>
 
+          {todoData && todoData.ingredients && (
+            <h1 className="text-md mt-2 mb-1">
+              Ingredients :
+              <span className=""> {todoData.ingredients.join(", ")}</span>
+            </h1>
+          )}
+
           <div className="md:mx-auto flex gap-8">
             <button
               onClick={handleLikeFood}

@@ -28,20 +28,16 @@ const Register = () => {
     try {
       const response = await dispatch(fetchRegister(registerData));
       if (response.payload) {
-        // Registrasi berhasil, lanjutkan dengan upload gambar
         if (fileImage) {
-          // Panggil fungsi fetchUploadImage untuk mengunggah gambar
           const uploadResponse = await dispatch(
             fetchUploadImage({ fileImage })
           );
 
-          // Jika upload berhasil, dapatkan URL gambar dari respons dan tambahkan ke registerData
           if (uploadResponse.payload) {
             registerData.profilePictureUrl = uploadResponse.payload.url;
           }
         }
 
-        // Redirect ke halaman login setelah selesai
         navigate("/login");
       }
     } catch (error) {
