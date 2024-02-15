@@ -94,6 +94,7 @@ const ListFoods = () => {
         if (response.payload) {
           toggleModal(false);
         }
+        dispatch(fetchFood());
       })
       .catch((error) => {
         console.error("Failed to create food", error);
@@ -117,6 +118,7 @@ const ListFoods = () => {
 
     dispatch(fetchEditFood({ id: id.id, foodData: editedFoodData }))
       .then(() => {
+        dispatch(fetchFood());
         setEditModalFood(false);
       })
       .catch((error) => {
@@ -140,8 +142,8 @@ const ListFoods = () => {
         dispatch(fetchDeleteFood(id))
           .unwrap()
           .then((data) => {
-            console.log("Food deleted successfully:", data);
-
+            // console.log("Food deleted successfully:", data);
+            dispatch(fetchFood());
             Swal.fire({
               title: "Success",
               text: data.message,

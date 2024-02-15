@@ -56,6 +56,7 @@ const ListUsers = () => {
     dispatch(fetchEditUserRole({ id:id.id , userData: editedUser }))
       .then(() => {
         setEditModalRole(false);
+        dispatch(fetchUser());
       })
       .catch((error) => {
         console.error("Failed to update role:", error);

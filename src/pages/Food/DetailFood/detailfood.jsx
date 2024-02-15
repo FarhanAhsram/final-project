@@ -59,8 +59,13 @@ const DetailFood = () => {
         rating,
         review,
       };
-      dispatch(fetchCreateRating({ id, ratingData }));
-      setRateModal(false);
+      dispatch(fetchCreateRating({ id, ratingData }))
+        .then(() => {
+          setRateModal(false);
+        })
+        .catch((error) => {
+          console.error("Failed to update role:", error);
+        });
     } catch (error) {
       console.error(error);
     }

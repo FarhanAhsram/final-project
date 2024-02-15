@@ -52,6 +52,7 @@ const UserAccount = () => {
     dispatch(fetchEditUserProfile({ userData: formData }))
       .then(() => {
         setEditUserProfile(false);
+        dispatch(fetchUserLogin());
       })
       .catch((error) => {
         console.error("Failed to update profile:", error);
