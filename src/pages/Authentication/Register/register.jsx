@@ -10,6 +10,11 @@ const Register = () => {
 
   const registerStatus = useSelector((state) => state.register.status);
 
+  const handlePhoneNumberChange = (e) => {
+    const phoneNumber = e.target.value.replace(/\D/g, "").slice(0, 13);
+    e.target.value = phoneNumber;
+  };
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -37,7 +42,7 @@ const Register = () => {
   return (
     <>
       <div className="bg-gray-50 min-h-screen flex items-center justify-center">
-        <div className="bg-cyan-100 flex rounded-xl shadow-lg max-w-3x1 p-3">
+        <div className="bg-[#EFE1D1] flex rounded-xl shadow-lg max-w-3x1 p-3">
           {/* Image */}
           <div className="md:block hidden w-1/2">
             <img
@@ -98,7 +103,6 @@ const Register = () => {
                 required
               >
                 <option value="user">User</option>
-                <option value="admin">Admin</option>
               </select>
               <input
                 type="text"
@@ -131,6 +135,7 @@ const Register = () => {
                 name="phoneNumber"
                 className="p-2 rounded border"
                 placeholder="Phone Number"
+                onChange={handlePhoneNumberChange}
                 required
               />
 

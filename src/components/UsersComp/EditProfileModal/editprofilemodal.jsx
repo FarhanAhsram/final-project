@@ -7,6 +7,11 @@ const EditProfileModal = ({
 }) => {
   if (!isOpen) return null;
 
+  const handlePhoneNumberChange = (e) => {
+    const phoneNumber = e.target.value.replace(/\D/g, '').slice(0, 13);
+    handleInputChange({ target: { name: 'phoneNumber', value: phoneNumber } });
+  };
+
   return (
     <>
       <div className="fixed inset-0 z-10 overflow-y-auto">
@@ -93,7 +98,7 @@ const EditProfileModal = ({
                   id="phoneNumber"
                   name="phoneNumber"
                   value={formData.phoneNumber}
-                  onChange={handleInputChange}
+                  onChange={handlePhoneNumberChange}
                   className="mt-1 p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring focus:ring-gray-200 focus:border-blue-500 block w-full sm:text-sm"
                 />
               </div>

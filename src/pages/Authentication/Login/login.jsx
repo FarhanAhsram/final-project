@@ -36,7 +36,7 @@ const Login = () => {
   return (
     <>
       <div className="bg-gray-50 min-h-screen flex items-center justify-center">
-        <div className="bg-cyan-100 flex rounded-xl shadow-lg max-w-3x1 p-5">
+        <div className="bg-[#EFE1D1] flex rounded-xl shadow-lg max-w-3x1 p-5">
           {/* Form */}
           <div className="sm:w-1/2 px-6 my-auto">
             <h2 className="text-[#7E5344] font-bold text-3xl">Login</h2>
