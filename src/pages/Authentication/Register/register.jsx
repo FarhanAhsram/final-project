@@ -104,31 +104,22 @@ const Register = () => {
               >
                 <option value="user">User</option>
               </select>
-              <input
+              {/* <input
                 type="text"
                 id="profilePictureUrl"
                 name="profilePictureUrl"
                 className="p-2 rounded border"
                 placeholder="Image Url"
                 required
-              />
-              {/* <input
+              /> */}
+              <input
                 type="file"
                 id="profilePictureUrl"
                 name="profilePictureUrl"
                 className="p-2 rounded border"
                 placeholder="Image Url"
                 required
-              /> */}
-              {/* <input
-                type="file"
-                id="profilePictureUrl"
-                name="profilePictureUrl"
-                className="p-2 rounded border"
-                onChange={handleFileChange}
-                accept="image/*"
-                required
-              /> */}
+              />
               <input
                 type="number"
                 id="phoneNumber"

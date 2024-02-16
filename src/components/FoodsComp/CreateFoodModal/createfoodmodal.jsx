@@ -5,7 +5,7 @@ const CreateFoodModal = ({
   handleSubmit,
   foodStatus,
   toggleModal,
-  fileImageRef,
+  handleImage,
 }) => {
   if (!isOpen) return null;
 
@@ -72,21 +72,21 @@ const CreateFoodModal = ({
                   >
                     Food Image
                   </label>
-                  <input
+                  {/* <input
                     type="text"
                     id="imageUrl"
                     name="imageUrl"
                     className="mt-1 p-2 border rounded-md w-full"
                     required
-                  />
-                  {/* <input
+                  /> */}
+                  <input
                     type="file"
-                    ref={fileImageRef}
                     id="imageUrl"
                     name="imageUrl"
+                    onChange={handleImage}
                     className="mt-1 p-2 border rounded-md w-full"
                     required
-                  /> */}
+                  />
                 </div>
                 <div className="mb-2">
                   <label
@@ -102,19 +102,19 @@ const CreateFoodModal = ({
                     required
                   ></textarea>
                 </div>
-                <div className="mt-4 flex justify-end">
+                <div className="mt-5 sm:mt-4 sm:flex sm:flex-row-reverse p-3">
+                  <button
+                    type="submit"
+                    className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-green-600 text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 sm:ml-3 sm:w-auto sm:text-sm"
+                  >
+                    {foodStatus === "loading" ? "Adding..." : "Add"}
+                  </button>
                   <button
                     type="button"
                     className="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
                     onClick={toggleModal}
                   >
                     Close
-                  </button>
-                  <button
-                    type="submit"
-                    className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-green-600 text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 sm:ml-3 sm:w-auto sm:text-sm"
-                  >
-                    {foodStatus === "loading" ? "Adding..." : "Add Menu"}
                   </button>
                 </div>
               </form>

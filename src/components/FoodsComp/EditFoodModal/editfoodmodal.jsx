@@ -72,12 +72,20 @@ const EditFoodModal = ({
                 >
                   Food Image
                 </label>
-                <input
+                {/* <input
                   type="text"
                   id="imageUrl"
                   name="imageUrl"
                   value={editedFood.imageUrl}
                   onChange={handleInputChange}
+                  className="mt-1 p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring focus:ring-gray-200 focus:border-blue-500 block w-full sm:text-sm"
+                /> */}
+                <input
+                  type="file"
+                  id="imageUrl"
+                  name="imageUrl"
+                  // value={editedFood.imageUrl}
+                  // onChange={handleInputChange}
                   className="mt-1 p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring focus:ring-gray-200 focus:border-blue-500 block w-full sm:text-sm"
                 />
               </div>
