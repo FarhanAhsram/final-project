@@ -1,4 +1,5 @@
 import Swal from "sweetalert2";
+import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
@@ -7,7 +8,6 @@ import { fetchDeleteFood } from "../../../reducer/deleteFoodSlice";
 import { fetchUserLogin } from "../../../reducer/userLoginSlice";
 import { fetchEditFood } from "../../../reducer/editFoodSlice";
 import { fetchCreateFood } from "../../../reducer/createFoodSlice";
-import { fetchUploadImage } from "../../../reducer/uploadImageSlice";
 
 import Navbar from "../../../components/Navbar/navbar";
 import Footer from "../../../components/Footer/footer";
@@ -30,6 +30,12 @@ const ListFoods = () => {
   // Hooks Selector & State Create Food
   const foodStatus = useSelector((state) => state.createFood.status);
   const [isOpen, setIsOpen] = useState(false);
+  const [fileImage, setFileImage] = useState(null);
+  const [form, setForm] = useState({
+    name: "",
+    description: "",
+    ingredients: [],
+  });
 
   // Hooks State Edit Food
   const [editModalFood, setEditModalFood] = useState(false);
@@ -46,6 +52,74 @@ const ListFoods = () => {
     dispatch(fetchUserLogin());
   }, [dispatch]);
 
+  // Function Create Food (handle Image)
+  const handleImage = (event) => {
+    setFileImage(event.target.files[0]);
+  };
+
+  // Function Create Food (on Change)
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    if (name === "ingredients") {
+      const ingredientsArray = value.split(",");
+      setForm({
+        ...form,
+        [name]: ingredientsArray,
+      });
+    } else {
+      setForm({
+        ...form,
+        [name]: value,
+      });
+    }
+  };
+
+  // Function Create Food (Submit Create)
+  const handleSubmit = async () => {
+    const accessToken = localStorage.getItem("accessToken");
+
+    try {
+      if (!fileImage) {
+        throw new Error("Please select an image to upload.");
+      }
+      const formImg = new FormData();
+      formImg.append("image", fileImage);
+
+      const imageUploadResponse = await axios.post(
+        "https://api-bootcamp.do.dibimbing.id/api/v1/upload-image",
+        formImg,
+        {
+          maxBodyLength: Infinity,
+          headers: {
+            "Content-Type": "multipart/form-data",
+            apiKey: "w05KkI9AWhKxzvPFtXotUva-",
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
+      );
+
+      const imageUrl = imageUploadResponse.data.url;
+
+      const formData = {
+        ...form,
+        imageUrl: imageUrl,
+      };
+
+      dispatch(fetchCreateFood(formData))
+        .unwrap()
+        .then(() => {
+          toggleModal(false);
+          dispatch(fetchFood());
+        })
+        .catch((error) => {
+          console.error("Failed to create food", error);
+        });
+    } catch (error) {
+      console.error("Failed to create food", error);
+    }
+  };
+
+  // Function Edit Food (get Data)
   const handleEditFood = (foodData) => {
     setFoodId({ id: foodData.id });
     setEditedFood({
@@ -58,6 +132,7 @@ const ListFoods = () => {
     setEditModalFood(true);
   };
 
+  // Function Edit Food (on Change)
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setEditedFood({
@@ -66,45 +141,10 @@ const ListFoods = () => {
     });
   };
 
-  const handleModalClose = () => {
-    setEditModalFood(false);
-  };
-
-  const toggleModal = () => {
-    setIsOpen(!isOpen);
-  };
-
-  // Function Create Food
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    const ingredientsArray = e.target.ingredients.value
-      .split(",")
-      .map((ingredient) => ingredient.trim());
-
-    const formData = {
-      name: e.target.name.value,
-      description: e.target.description.value,
-      imageUrl: e.target.imageUrl.value,
-      ingredients: ingredientsArray,
-    };
-
-    dispatch(fetchCreateFood(formData))
-      .then((response) => {
-        if (response.payload) {
-          toggleModal(false);
-        }
-        dispatch(fetchFood());
-      })
-      .catch((error) => {
-        console.error("Failed to create food", error);
-      });
-  };
-
-  // Function Edit Food
+  // Function Edit Food (Submit Edit)
   const handleSaveFood = () => {
     const id = foodId;
-    // console.log(id);
+
     const ingredients = Array.isArray(editedFood.ingredients)
       ? editedFood.ingredients
       : editedFood.ingredients
@@ -130,7 +170,7 @@ const ListFoods = () => {
   const handleDelete = (id) => {
     Swal.fire({
       title: "Delete Food?",
-      text: "You won't be able to revert this!",
+      text: "You cannot change this action again!",
       icon: "warning",
       showCancelButton: true,
       confirmButtonText: "Yes, delete it!",
@@ -142,10 +182,9 @@ const ListFoods = () => {
         dispatch(fetchDeleteFood(id))
           .unwrap()
           .then((data) => {
-            // console.log("Food deleted successfully:", data);
             dispatch(fetchFood());
             Swal.fire({
-              title: "Success",
+              title: "Food Deleted Successfully",
               text: data.message,
               icon: "success",
               confirmButtonText: "OK",
@@ -155,7 +194,7 @@ const ListFoods = () => {
             console.error("Failed to delete food", error);
 
             Swal.fire({
-              title: "Error",
+              title: "Failed to Create Food",
               text: data.message,
               icon: "error",
               confirmButtonText: "OK",
@@ -163,6 +202,16 @@ const ListFoods = () => {
           });
       }
     });
+  };
+
+  // Toggle Create Food
+  const toggleModal = () => {
+    setIsOpen(!isOpen);
+  };
+
+  // Toggle Edit Food
+  const handleModalClose = () => {
+    setEditModalFood(false);
   };
 
   // console.log("todo", foods);
@@ -270,6 +319,8 @@ const ListFoods = () => {
 
       <CreateFoodModal
         isOpen={isOpen}
+        handleChange={handleChange}
+        handleImage={handleImage}
         handleSubmit={handleSubmit}
         foodStatus={foodStatus}
         toggleModal={toggleModal}
@@ -278,9 +329,9 @@ const ListFoods = () => {
       <EditFoodModal
         isOpen={editModalFood}
         editedFood={editedFood}
+        handleInputChange={handleInputChange}
         handleSaveFood={handleSaveFood}
         handleModalClose={handleModalClose}
-        handleInputChange={handleInputChange}
       />
 
       <Footer />

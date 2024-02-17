@@ -2,10 +2,11 @@ import React from "react";
 
 const CreateFoodModal = ({
   isOpen,
+  handleChange,
+  handleImage,
   handleSubmit,
   foodStatus,
   toggleModal,
-  handleImage,
 }) => {
   if (!isOpen) return null;
 
@@ -35,7 +36,7 @@ const CreateFoodModal = ({
               >
                 Create Food
               </h3>
-              <form onSubmit={handleSubmit}>
+              <form>
                 <div className="mb-4">
                   <label
                     htmlFor="name"
@@ -47,6 +48,7 @@ const CreateFoodModal = ({
                     type="text"
                     id="name"
                     name="name"
+                    onChange={handleChange}
                     className="mt-1 p-2 border rounded-md w-full"
                     required
                   />
@@ -61,6 +63,7 @@ const CreateFoodModal = ({
                   <textarea
                     id="description"
                     name="description"
+                    onChange={handleChange}
                     className="mt-1 p-2 border rounded-md w-full"
                     required
                   ></textarea>
@@ -98,26 +101,28 @@ const CreateFoodModal = ({
                   <textarea
                     id="ingredients"
                     name="ingredients"
+                    onChange={handleChange}
                     className="mt-1 p-2 border rounded-md w-full"
                     required
                   ></textarea>
                 </div>
-                <div className="mt-5 sm:mt-4 sm:flex sm:flex-row-reverse p-3">
-                  <button
-                    type="submit"
-                    className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-green-600 text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 sm:ml-3 sm:w-auto sm:text-sm"
-                  >
-                    {foodStatus === "loading" ? "Adding..." : "Add"}
-                  </button>
-                  <button
-                    type="button"
-                    className="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
-                    onClick={toggleModal}
-                  >
-                    Close
-                  </button>
-                </div>
               </form>
+              <div className="mt-5 sm:mt-4 sm:flex sm:flex-row-reverse p-3">
+                <button
+                  type="submit"
+                  onClick={handleSubmit}
+                  className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-green-600 text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 sm:ml-3 sm:w-auto sm:text-sm"
+                >
+                  {foodStatus === "loading" ? "Adding..." : "Add"}
+                </button>
+                <button
+                  type="button"
+                  className="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
+                  onClick={toggleModal}
+                >
+                  Close
+                </button>
+              </div>
             </div>
           </div>
         </div>

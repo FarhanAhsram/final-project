@@ -17,7 +17,6 @@ import createRatingReducer from "../reducer/createRatingSlice";
 import getRatingReducer from "../reducer/getRatingSlice";
 import foodLikeReducer from "../reducer/foodLikeSlice";
 import foodUnlikeReducer from "../reducer/foodUnlikeSlice";
-import uploadImageReducer from "../reducer/uploadImageSlice";
 
 const saveTokenMiddleware = () => (next) => (action) => {
   if (action.type === "login/fetchLogin/fulfilled") {
@@ -67,8 +66,6 @@ export const store = configureStore({
 
     createRating: createRatingReducer,
     getRating: getRatingReducer,
-
-    uploadImage: uploadImageReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
