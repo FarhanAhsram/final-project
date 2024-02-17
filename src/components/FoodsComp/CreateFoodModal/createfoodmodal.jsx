@@ -75,13 +75,6 @@ const CreateFoodModal = ({
                   >
                     Food Image
                   </label>
-                  {/* <input
-                    type="text"
-                    id="imageUrl"
-                    name="imageUrl"
-                    className="mt-1 p-2 border rounded-md w-full"
-                    required
-                  /> */}
                   <input
                     type="file"
                     id="imageUrl"
