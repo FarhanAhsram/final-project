@@ -103,6 +103,7 @@ const Register = () => {
                 required
               >
                 <option value="user">User</option>
+                <option value="admin">Admin</option>
               </select>
               {/* <input
                 type="text"

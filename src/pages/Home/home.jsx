@@ -25,7 +25,7 @@ const Home = () => {
               to={"/listfoods"}
               className="bg-[#A87C7C] rounded-3xl text-center py-3 px-8 w-full font-medium inline-block mt-6 sm:mt-4 sm:w-1/3 sm:text-center hover:bg-[#3E3232] hover:text-white focus:scale-95 transition-all duration-200 ease-out"
             >
-              Get Started
+              <h1 className="flex items-center justify-center">Get Started</h1>
             </Link>
           </div>
         </div>
