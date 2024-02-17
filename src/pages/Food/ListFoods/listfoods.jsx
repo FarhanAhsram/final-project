@@ -40,11 +40,12 @@ const ListFoods = () => {
   // Hooks State Edit Food
   const [editModalFood, setEditModalFood] = useState(false);
   const [foodId, setFoodId] = useState({ id: null });
+  const [editImage, setEditImage] = useState(null);
   const [editedFood, setEditedFood] = useState({
     name: "",
     description: "",
     imageUrl: "",
-    ingredients: "",
+    ingredients: [],
   });
 
   useEffect(() => {
@@ -132,6 +133,10 @@ const ListFoods = () => {
     setEditModalFood(true);
   };
 
+  const handleImageEdit = (event) => {
+    setEditImage(event.target.files[0]);
+  };
+
   // Function Edit Food (on Change)
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -142,28 +147,58 @@ const ListFoods = () => {
   };
 
   // Function Edit Food (Submit Edit)
-  const handleSaveFood = () => {
-    const id = foodId;
+  const handleSaveFood = async () => {
+    const accessToken = localStorage.getItem("accessToken");
 
-    const ingredients = Array.isArray(editedFood.ingredients)
-      ? editedFood.ingredients
-      : editedFood.ingredients
-          .split(",")
-          .map((ingredient) => ingredient.trim());
+    try {
+      let imageFoodUrl = editedFood.imageUrl;
 
-    const editedFoodData = {
-      ...editedFood,
-      ingredients: ingredients,
-    };
+      if (editImage) {
+        const formImgEdit = new FormData();
+        formImgEdit.append("image", editImage);
 
-    dispatch(fetchEditFood({ id: id.id, foodData: editedFoodData }))
-      .then(() => {
-        dispatch(fetchFood());
-        setEditModalFood(false);
-      })
-      .catch((error) => {
-        console.error("Failed to update food:", error);
-      });
+        const imageUploadResponse = await axios.post(
+          "https://api-bootcamp.do.dibimbing.id/api/v1/upload-image",
+          formImgEdit,
+          {
+            maxBodyLength: Infinity,
+            headers: {
+              "Content-Type": "multipart/form-data",
+              apiKey: "w05KkI9AWhKxzvPFtXotUva-",
+              Authorization: `Bearer ${accessToken}`,
+            },
+          }
+        );
+
+        imageFoodUrl = imageUploadResponse.data.url;
+      }
+
+      const id = foodId;
+
+      const ingredients = Array.isArray(editedFood.ingredients)
+        ? editedFood.ingredients
+        : editedFood.ingredients
+            .split(",")
+            .map((ingredient) => ingredient.trim());
+
+      const editedFoodData = {
+        ...editedFood,
+        imageUrl: imageFoodUrl,
+        ingredients: ingredients,
+      };
+
+      dispatch(fetchEditFood({ id: id.id, foodData: editedFoodData }))
+        .unwrap()
+        .then(() => {
+          dispatch(fetchFood());
+          setEditModalFood(false);
+        })
+        .catch((error) => {
+          console.error("Failed to update food:", error);
+        });
+    } catch (error) {
+      console.error("Failed to update food:", error);
+    }
   };
 
   // Function Delete Food
@@ -330,6 +365,7 @@ const ListFoods = () => {
         isOpen={editModalFood}
         editedFood={editedFood}
         handleInputChange={handleInputChange}
+        handleImageEdit={handleImageEdit}
         handleSaveFood={handleSaveFood}
         handleModalClose={handleModalClose}
       />

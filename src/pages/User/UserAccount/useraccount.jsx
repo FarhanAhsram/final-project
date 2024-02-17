@@ -1,3 +1,4 @@
+import axios from "axios";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchUserLogin } from "../../../reducer/userLoginSlice";
@@ -16,6 +17,7 @@ const UserAccount = () => {
 
   // Hooks State EditProfile
   const [editUserProfile, setEditUserProfile] = useState(false);
+  const [fileImage, setFileImage] = useState(null);
   const [formData, setFormData] = useState({
     name: todoAcc.name,
     email: todoAcc.email,
@@ -27,7 +29,7 @@ const UserAccount = () => {
     dispatch(fetchUserLogin());
   }, [dispatch]);
 
-  // Function untuk Get Data User
+  // Function Get Data User
   const handleEdit = (userData) => {
     setFormData({
       id: userData.id,
@@ -39,6 +41,10 @@ const UserAccount = () => {
     setEditUserProfile(true);
   };
 
+  const handleImage = (event) => {
+    setFileImage(event.target.files[0]);
+  };
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -48,17 +54,52 @@ const UserAccount = () => {
   };
 
   // Function Edit Profile User
-  const handleSaveEdit = () => {
-    dispatch(fetchEditUserProfile({ userData: formData }))
-      .then(() => {
-        setEditUserProfile(false);
-        dispatch(fetchUserLogin());
-      })
-      .catch((error) => {
-        console.error("Failed to update profile:", error);
-      });
+  const handleSaveEdit = async () => {
+    const accessToken = localStorage.getItem("accessToken");
+
+    try {
+      let imageUrl = formData.profilePictureUrl;
+
+      if (fileImage) {
+        const formImg = new FormData();
+        formImg.append("image", fileImage);
+
+        const imageUploadResponse = await axios.post(
+          "https://api-bootcamp.do.dibimbing.id/api/v1/upload-image",
+          formImg,
+          {
+            maxBodyLength: Infinity,
+            headers: {
+              "Content-Type": "multipart/form-data",
+              apiKey: "w05KkI9AWhKxzvPFtXotUva-",
+              Authorization: `Bearer ${accessToken}`,
+            },
+          }
+        );
+
+        imageUrl = imageUploadResponse.data.url;
+      }
+
+      const profileData = {
+        ...formData,
+        profilePictureUrl: imageUrl,
+      };
+
+      dispatch(fetchEditUserProfile({ userData: profileData }))
+        .unwrap()
+        .then(() => {
+          setEditUserProfile(false);
+          dispatch(fetchUserLogin());
+        })
+        .catch((error) => {
+          console.error("Failed to edit user profile", error);
+        });
+    } catch (error) {
+      console.error("Failed to edit user profile", error);
+    }
   };
 
+  // Toggle Edit User Account
   const handleModalClose = () => {
     setEditUserProfile(false);
   };
@@ -98,9 +139,10 @@ const UserAccount = () => {
       <EditProfileModal
         isOpen={editUserProfile}
         formData={formData}
+        handleInputChange={handleInputChange}
+        handleImage={handleImage}
         handleSaveEdit={handleSaveEdit}
         handleModalClose={handleModalClose}
-        handleInputChange={handleInputChange}
       />
 
       <Footer />

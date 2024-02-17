@@ -1,15 +1,16 @@
 const EditProfileModal = ({
   isOpen,
   formData,
+  handleInputChange,
+  handleImage,
   handleSaveEdit,
   handleModalClose,
-  handleInputChange,
 }) => {
   if (!isOpen) return null;
 
   const handlePhoneNumberChange = (e) => {
-    const phoneNumber = e.target.value.replace(/\D/g, '').slice(0, 13);
-    handleInputChange({ target: { name: 'phoneNumber', value: phoneNumber } });
+    const phoneNumber = e.target.value.replace(/\D/g, "").slice(0, 13);
+    handleInputChange({ target: { name: "phoneNumber", value: phoneNumber } });
   };
 
   return (
@@ -77,20 +78,16 @@ const EditProfileModal = ({
                 >
                   Profile Picture
                 </label>
-                {/* <input
-                  type="text"
-                  id="profilePictureUrl"
-                  name="profilePictureUrl"
-                  value={formData.profilePictureUrl}
-                  onChange={handleInputChange}
-                  className="mt-1 p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring focus:ring-gray-200 focus:border-blue-500 block w-full sm:text-sm"
-                /> */}
+                <img
+                  src={formData.profilePictureUrl}
+                  alt={formData.name}
+                  className="rounded-lg w-1/2 mx-auto mb-2"
+                />
                 <input
                   type="file"
                   id="profilePictureUrl"
                   name="profilePictureUrl"
-                  // value={formData.profilePictureUrl}
-                  // onChange={handleInputChange}
+                  onChange={handleImage}
                   className="mt-1 p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring focus:ring-gray-200 focus:border-blue-500 block w-full sm:text-sm"
                 />
               </div>
